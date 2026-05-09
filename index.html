@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ON Snack Bar | أون — Riyadh</title>
+    <meta name="description" content="ON Snack Bar (أون) — Specialty coffee, artisan desserts, and fresh sandwiches in Riyadh, Saudi Arabia.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,700&family=Inter:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+    :root {
+        --bg-base:   #0a0805;
+        --bg-2:      #12100c;
+        --bg-card:   #1b1610;
+        --gold:      #c9a84c;
+        --gold-lt:   #e8c87a;
+        --gold-dk:   #8b6914;
+        --cream:     #f2ede4;
+        --cream-dim: #a8a099;
+        --border:    rgba(201,168,76,.12);
+        --shadow:    rgba(0,0,0,.6);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { background: var(--bg-base); color: var(--cream); font-family: 'Inter', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+    body::before { content:''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; opacity: .4; }
+    #cur, #cur-f { position: fixed; border-radius: 50%; pointer-events: none; transform: translate(-50%,-50%); z-index: 99998; }
+    #cur { width: 8px; height: 8px; background: var(--gold); z-index: 99999; transition: transform .1s; }
+    #cur-f { width: 38px; height: 38px; border: 1.5px solid var(--gold); opacity: .5; transition: width .35s cubic-bezier(.16,1,.3,1), height .35s cubic-bezier(.16,1,.3,1), opacity .35s; }
+    body.hovering #cur-f { width:60px; height:60px; opacity:.25; }
+    @media (hover:none) { #cur,#cur-f { display:none; } body { cursor:auto; } }
+    #loader { position: fixed; inset:0; background: var(--bg-base); z-index: 99997; display: flex; flex-direction: column; align-items: center; justify-content: center; transition: opacity .9s ease, visibility .9s ease; }
+    #loader.out { opacity:0; visibility:hidden; }
+    .ldr-logo { font-family: 'Playfair Display', serif; font-size: 5.5rem; color: var(--gold); letter-spacing: .4em; animation: ldrPulse 2s ease-in-out infinite; line-height: 1; padding-right: .4em; }
+    .ldr-ar { font-family: 'Noto Naskh Arabic', serif; font-size: 1.6rem; color: var(--cream-dim); letter-spacing: .15em; margin-top: .5rem; opacity: 0; animation: fadeUp .7s ease .4s forwards; }
+    .ldr-bar { width: 180px; height: 1px; background: rgba(201,168,76,.15); margin-top: 3rem; position: relative; overflow: hidden; }
+    .ldr-fill { position: absolute; inset: 0; background: linear-gradient(90deg, var(--gold-dk), var(--gold), var(--gold-lt)); transform: scaleX(0); transform-origin: left; animation: ldrFill 2.4s cubic-bezier(.77,0,.18,1) forwards; }
+    @keyframes ldrFill { to { transform:scaleX(1); } }
+    @keyframes ldrPulse { 0%,100%{opacity:1} 50%{opacity:.5} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:none} }
+    #pcv { position: fixed; inset: 0; pointer-events: none; z-index: 1; opacity: .35; }
+    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1.8rem 6%; display: flex; align-items: center; justify-content: space-between; transition: padding .4s ease, background .4s ease, border-color .4s ease; border-bottom: 1px solid transparent; }
+    nav.solid { padding: 1.1rem 6%; background: rgba(10,8,5,.92); backdrop-filter: blur(24px); border-bottom-color: var(--border); }
+    .nav-logo { display: flex; align-items: center; gap: .7rem; text-decoration: none; }
+    .nav-logo-en { font-family: 'Playfair Display', serif; font-size: 1.9rem; color: var(--gold); letter-spacing: .25em; line-height: 1; padding-right: .25em; }
+    .nav-logo-ar { font-family: 'Noto Naskh Arabic', serif; font-size: 1rem; color: var(--cream-dim); letter-spacing: .05em; }
+    .nav-links { display: flex; list-style: none; gap: 2.5rem; align-items: center; }
+    .nav-links a { color: var(--cream-dim); text-decoration: none; font-size: .78rem; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; transition: color .3s; position: relative; }
+    .nav-links a::after { content:''; position: absolute; bottom: -4px; left:0; width:0; height:1px; background: var(--gold); transition: width .35s cubic-bezier(.16,1,.3,1); }
+    .nav-links a:hover { color: var(--gold); }
+    .nav-links a:hover::after { width:100%; }
+    .nav-btn { padding: .6rem 1.6rem !important; border: 1px solid var(--gold) !important; color: var(--gold) !important; border-radius: 1px; transition: background .3s, color .3s !important; }
+    .nav-btn::after { display:none !important; }
+    .nav-btn:hover { background: var(--gold) !important; color: var(--bg-base) !important; }
+    .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; z-index: 1001; }
+    .hamburger span { display:block; width:24px; height:1.5px; background:var(--gold); transition:.3s; }
+    .mob-nav { display: none; position: fixed; top:0; right:0; bottom:0; width: min(300px, 90vw); background: rgba(10,8,5,.98); backdrop-filter: blur(30px); border-left: 1px solid var(--border); flex-direction: column; justify-content: center; padding: 3rem 2.5rem; gap: 2rem; transform: translateX(100%); transition: transform .4s cubic-bezier(.16,1,.3,1); z-index: 1002; }
+    .mob-nav.open { transform: translateX(0); }
+    .mob-nav a { color: var(--cream-dim); text-decoration: none; font-size: 1.1rem; letter-spacing: .15em; text-transform: uppercase; transition: color .3s; }
+    .mob-nav a:hover { color: var(--gold); }
+    .mob-close { position: absolute; top: 1.5rem; right: 1.8rem; background:none; border:none; color:var(--cream-dim); font-size:1.3rem; cursor:pointer; transition:color .3s; }
+    .mob-close:hover { color:var(--gold); }
+    @media(max-width:768px){ .nav-links { display:none; } .hamburger { display:flex; } .mob-nav { display:flex; } }
+    section { position:relative; z-index:2; }
+    .s-label { font-size: .7rem; letter-spacing: .45em; text-transform: uppercase; color: var(--gold); margin-bottom: 1.2rem; }
+    .s-title { font-family: 'Playfair Display', serif; font-size: clamp(2.2rem,5vw,4.5rem); line-height: 1.1; color: var(--cream); margin-bottom: 1.5rem; }
+    .s-title em { font-style:italic; color:var(--gold); }
+    .s-rule { width:50px; height:1.5px; background:linear-gradient(90deg,var(--gold),transparent); margin-bottom:2rem; }
+    .rev { opacity: 0; transform: translateY(35px); transition: opacity .85s cubic-bezier(.16,1,.3,1), transform .85s cubic-bezier(.16,1,.3,1); }
+    .rev.in { opacity:1; transform:none; }
+    .d1{transition-delay:.08s} .d2{transition-delay:.16s} .d3{transition-delay:.24s} .d4{transition-delay:.32s} .d5{transition-delay:.40s}
+    #hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; overflow: hidden; position: relative; }
+    .hero-bg { position: absolute; inset:0; background: radial-gradient(ellipse 80% 60% at 25% 55%, rgba(201,168,76,.07) 0%, transparent 65%), radial-gradient(ellipse 60% 50% at 75% 20%, rgba(201,168,76,.05) 0%, transparent 55%), radial-gradient(ellipse 70% 50% at 55% 100%, rgba(139,105,20,.1) 0%, transparent 55%); }
+    .hero-grid { position: absolute; inset:0; background-image: linear-gradient(rgba(201,168,76,.025) 1px,transparent 1px), linear-gradient(90deg,rgba(201,168,76,.025) 1px,transparent 1px); background-size: 65px 65px; will-change: transform; }
+    .hero-inner { text-align:center; position:relative; z-index:3; padding:0 2rem; }
+    .hero-pre { font-size: .72rem; letter-spacing: .55em; text-transform: uppercase; color: var(--gold); margin-bottom: 2.5rem; opacity: 0; animation: fadeUp .8s ease .6s forwards; }
+    .hero-title { font-family: 'Playfair Display', serif; font-size: clamp(6rem,22vw,16rem); color: var(--cream); line-height: .88; letter-spacing: -.01em; opacity: 0; animation: heroReveal 1.3s cubic-bezier(.16,1,.3,1) .9s forwards; }
+    .hero-title .g { color:var(--gold); text-shadow:0 0 80px rgba(201,168,76,.35); }
+    .hero-ar { font-family: 'Noto Naskh Arabic', serif; font-size: clamp(1.8rem,4.5vw,3.2rem); color: var(--cream-dim); letter-spacing: .2em; margin-top: 1.2rem; opacity: 0; animation: fadeUp .8s ease 1.5s forwards; }
+    .hero-sub { font-size: clamp(.85rem,1.8vw,1rem); color: var(--cream-dim); margin-top: 2rem; letter-spacing: .22em; opacity: 0; animation: fadeUp .8s ease 1.9s forwards; }
+    .hero-cta { margin-top: 3.5rem; display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; opacity: 0; animation: fadeUp .8s ease 2.2s forwards; }
+    .btn-gold { display: inline-block; padding: .9rem 2.5rem; background: var(--gold); color: var(--bg-base); font-size: .78rem; font-weight: 600; letter-spacing: .22em; text-transform: uppercase; text-decoration: none; border: none; cursor:pointer; position: relative; overflow: hidden; transition: color .3s; }
+    .btn-gold::before { content:''; position:absolute; inset:0; background: var(--gold-lt); transform: translateX(-100%); transition: transform .5s cubic-bezier(.16,1,.3,1); }
+    .btn-gold:hover::before { transform:translateX(0); }
+    .btn-gold span { position:relative; z-index:1; }
+    .btn-ghost { display: inline-block; padding: .9rem 2.5rem; background: transparent; color: var(--cream-dim); font-size: .78rem; letter-spacing: .22em; text-transform: uppercase; text-decoration: none; border: 1px solid rgba(242,237,228,.25); transition: border-color .3s, color .3s; }
+    .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+    .hero-scroll { position: absolute; bottom: 2.5rem; left:50%; transform: translateX(-50%); display: flex; flex-direction:column; align-items:center; gap:.7rem; font-size: .6rem; letter-spacing:.4em; text-transform:uppercase; color: var(--cream-dim); opacity: 0; animation: fadeUp .8s ease 2.6s forwards; z-index:3; }
+    .scroll-bar { width: 1px; height: 55px; background: linear-gradient(to bottom, var(--gold), transparent); animation: scrollAnim 2.2s ease infinite; }
+    @keyframes scrollAnim { 0%{ transform:scaleY(0); transform-origin:top; } 49%{ transform:scaleY(1); transform-origin:top; } 50%{ transform:scaleY(1); transform-origin:bottom; } 100%{ transform:scaleY(0); transform-origin:bottom; } }
+    .wsp { position: absolute; bottom: 0; width: 2px; border-radius: 99px; background: linear-gradient(to top, transparent, rgba(201,168,76,.18), transparent); pointer-events: none; animation: wisp 4.5s ease-in-out infinite; }
+    @keyframes wisp { 0%{ transform:translateY(0) scaleX(1); opacity:0; } 15%{ opacity:.8; } 85%{ opacity:.3; } 100%{ transform:translateY(-220px) scaleX(4); opacity:0; } }
+    @keyframes heroReveal { from { opacity:0; transform:translateY(50px) scale(.96); filter:blur(12px); } to { opacity:1; transform:none; filter:none; } }
+    .marquee-wrap { position:relative; z-index:2; background: var(--gold); overflow: hidden; padding: 1rem 0; }
+    .marquee-track { display: flex; width: max-content; animation: mq 35s linear infinite; }
+    .mq-item { display: flex; align-items:center; gap:2.5rem; padding: 0 2.5rem; font-size: .72rem; font-weight: 600; letter-spacing: .35em; text-transform: uppercase; color: var(--bg-base); white-space: nowrap; }
+    .mq-dot { width:4px; height:4px; background:rgba(10,8,5,.35); border-radius:50%; flex-shrink:0; }
+    @keyframes mq { to { transform:translateX(-50%); } }
+    #about { padding: 9rem 7%; display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: center; background: var(--bg-2); }
+    .about-body p { color: var(--cream-dim); line-height: 2; font-size: .95rem; margin-bottom: 1.5rem; }
+    .stats-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 3.5rem; }
+    .stat { padding: 2rem 1rem; border: 1px solid var(--border); text-align: center; position: relative; overflow: hidden; transition: border-color .4s, transform .4s; }
+    .stat::after { content:''; position:absolute; inset:0; background: linear-gradient(135deg, rgba(201,168,76,.06) 0%, transparent 70%); opacity:0; transition:opacity .4s; }
+    .stat:hover { border-color:var(--gold); transform:translateY(-5px); }
+    .stat:hover::after { opacity:1; }
+    .stat-n { font-family: 'Playfair Display', serif; font-size: 2.8rem; color: var(--gold); display:block; line-height:1; margin-bottom: .4rem; }
+    .stat-l { font-size:.7rem; letter-spacing:.2em; text-transform:uppercase; color:var(--cream-dim); }
+    .about-vis { position:relative; height:480px; }
+    .av-card { position:absolute; background: var(--bg-card); border: 1px solid var(--border); padding: 2rem; overflow:hidden; }
+    .av-main { width:72%; right:0; top:0; height:360px; background: linear-gradient(145deg, #1e1811 0%, #0d0a07 100%); display:flex; flex-direction:column; justify-content:flex-end; }
+    .av-main-icon { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:9rem; opacity:.08; animation: floatIcon 6s ease-in-out infinite; }
+    @keyframes floatIcon { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
+    .av-main-tag { position:relative; z-index:1; font-size:.65rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:.5rem; }
+    .av-main-name { position:relative; z-index:1; font-family:'Playfair Display',serif; font-size:1.35rem; color:var(--cream); line-height:1.3; margin-bottom:.4rem; }
+    .av-main-price { position:relative; z-index:1; font-size:.8rem; color:var(--cream-dim); }
+    .av-accent { width:55%; left:0; bottom:0; background: linear-gradient(135deg,rgba(201,168,76,.09) 0%,rgba(139,105,20,.03) 100%); border-color: rgba(201,168,76,.2); }
+    .av-accent-tag { font-size:.65rem; letter-spacing:.3em; text-transform:uppercase; color:var(--gold); margin-bottom:.5rem; }
+    .av-accent-val { font-family:'Playfair Display',serif; font-size:1.7rem; color:var(--cream); }
+    .av-accent-sub { font-size:.75rem; color:var(--cream-dim); margin-top:.4rem; }
+    @media(max-width:900px){ #about { grid-template-columns:1fr; gap:4rem; padding:6rem 6%; } .about-vis { height:320px; } }
+    #featured { padding: 9rem 7%; background: var(--bg-base); }
+    .featured-hd { text-align:center; margin-bottom:5rem; }
+    .feat-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+    @media(max-width:900px){ .feat-grid { grid-template-columns:1fr 1fr; } }
+    @media(max-width:580px){ .feat-grid { grid-template-columns:1fr; } }
+    .feat-card { border: 1px solid var(--border); background: var(--bg-card); padding: 2.5rem 2rem; position:relative; overflow:hidden; cursor:pointer; transition: transform .5s cubic-bezier(.16,1,.3,1), border-color .5s, box-shadow .5s; }
+    .feat-card::before { content:''; position:absolute; inset:0; background: linear-gradient(135deg,rgba(201,168,76,.06) 0%,transparent 60%); opacity:0; transition:opacity .5s; }
+    .feat-card:hover { transform:translateY(-12px); border-color:rgba(201,168,76,.4); box-shadow:0 30px 60px var(--shadow), 0 0 30px rgba(201,168,76,.07); }
+    .feat-card:hover::before { opacity:1; }
+    .fc-corner { position:absolute; top:1.5rem; right:1.5rem; width:36px; height:36px; border-top: 1.5px solid rgba(201,168,76,.3); border-right: 1.5px solid rgba(201,168,76,.3); transition: all .4s; }
+    .feat-card:hover .fc-corner { width:48px; height:48px; border-color:var(--gold); }
+    .fc-emoji { font-size:3.2rem; display:block; margin-bottom:1.5rem; transition:transform .5s; }
+    .feat-card:hover .fc-emoji { transform:scale(1.2) rotate(-6deg); }
+    .fc-cat { font-size:.65rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:.7rem; }
+    .fc-name { font-family:'Playfair Display',serif; font-size:1.45rem; color:var(--cream); line-height:1.3; margin-bottom:.8rem; }
+    .fc-desc { font-size:.82rem; color:var(--cream-dim); line-height:1.75; margin-bottom:1.5rem; }
+    .fc-price { font-family:'Playfair Display',serif; font-size:1.7rem; color:var(--gold); }
+    .fc-price sup { font-family:'Inter',sans-serif; font-size:.7rem; color:var(--cream-dim); margin-left:.3rem; vertical-align:super; font-style:normal; }
+    #menu { padding: 9rem 7%; background: var(--bg-2); }
+    .menu-hd { text-align:center; margin-bottom:4rem; }
+    .menu-hd p { color:var(--cream-dim); max-width:480px; margin:.5rem auto 0; font-size:.9rem; line-height:1.9; }
+    .menu-tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; margin-bottom: 4rem; }
+    .m-tab { padding: .65rem 1.6rem; font-size: .7rem; font-weight: 500; letter-spacing: .2em; text-transform: uppercase; border: 1px solid rgba(201,168,76,.2); background: transparent; color: var(--cream-dim); cursor: pointer; font-family: 'Inter',sans-serif; transition: all .3s; }
+    .m-tab:hover, .m-tab.on { background: var(--gold); border-color: var(--gold); color: var(--bg-base); font-weight: 600; }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px,1fr)); gap: 1.2rem; }
+    .m-card { display: flex; justify-content: space-between; align-items: flex-start; gap: 1rem; padding: 1.6rem; background: var(--bg-card); border: 1px solid rgba(201,168,76,.07); position:relative; overflow:hidden; transition: transform .4s cubic-bezier(.16,1,.3,1), border-color .4s, box-shadow .4s; }
+    .m-card::after { content:''; position:absolute; bottom:0; left:0; width:0; height:1.5px; background: linear-gradient(90deg,var(--gold),var(--gold-lt)); transition: width .4s cubic-bezier(.16,1,.3,1); }
+    .m-card:hover { transform:translateY(-4px); border-color:rgba(201,168,76,.22); box-shadow:0 18px 40px var(--shadow); }
+    .m-card:hover::after { width:100%; }
+    .m-card-body { flex:1; min-width:0; }
+    .m-name { font-family:'Playfair Display',serif; font-size:1rem; color:var(--cream); line-height:1.4; margin-bottom:.35rem; }
+    .m-desc { font-size:.78rem; color:var(--cream-dim); line-height:1.65; }
+    .m-cal { font-size:.68rem; color:rgba(168,160,153,.45); margin-top:.4rem; letter-spacing:.06em; }
+    .m-price { font-family:'Playfair Display',serif; font-size:1.35rem; color:var(--gold); white-space:nowrap; flex-shrink:0; }
+    .m-price .cur { display:block; text-align:right; font-family:'Inter',sans-serif; font-size:.65rem; color:var(--cream-dim); letter-spacing:.1em; margin-bottom:.1rem; }
+    #experience { padding: 9rem 7%; background: var(--bg-base); display: grid; grid-template-columns: 1fr 1fr; gap: 7rem; align-items: center; }
+    @media(max-width:900px){ #experience { grid-template-columns:1fr; gap:4rem; padding:6rem 6%; } }
+    .exp-feats { display:flex; flex-direction:column; gap:1.8rem; }
+    .exp-feat { display:flex; gap:1.5rem; align-items:flex-start; padding: 1.5rem; border: 1px solid rgba(201,168,76,.07); position:relative; transition: border-color .4s, padding-left .4s; }
+    .exp-feat::before { content:''; position:absolute; left:0; top:0; bottom:0; width:0; background:var(--gold); transition:width .4s; }
+    .exp-feat:hover { border-color:rgba(201,168,76,.3); padding-left:2.2rem; }
+    .exp-feat:hover::before { width:3px; }
+    .ef-icon { font-size:2rem; flex-shrink:0; margin-top:.1rem; }
+    .ef-title { font-family:'Playfair Display',serif; font-size:1.05rem; color:var(--cream); margin-bottom:.45rem; }
+    .ef-desc { font-size:.82rem; color:var(--cream-dim); line-height:1.8; }
+    .exp-vis { position:relative; height:480px; display:flex; align-items:center; justify-content:center; }
+    .exp-ring { position:absolute; border-radius:50%; border: 1px solid rgba(201,168,76,.1); animation: rPulse 7s ease-in-out infinite; }
+    .er1 { width:180px; height:180px; animation-delay:0s; }
+    .er2 { width:310px; height:310px; animation-delay:1.2s; }
+    .er3 { width:440px; height:440px; animation-delay:2.4s; }
+    .er4 { width:560px; height:560px; animation-delay:3.6s; border-color:rgba(201,168,76,.05); }
+    @keyframes rPulse { 0%,100%{opacity:.4;transform:scale(1)} 50%{opacity:.8;transform:scale(1.02)} }
+    .exp-core { width:148px; height:148px; border-radius:50%; border: 1px solid rgba(201,168,76,.35); background: linear-gradient(135deg,rgba(201,168,76,.09) 0%,rgba(10,8,5,.5) 100%); display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:1; }
+    .exp-core-n { font-family:'Playfair Display',serif; font-size:2.3rem; color:var(--gold); }
+    .exp-core-s { font-size:.6rem; letter-spacing:.3em; text-transform:uppercase; color:var(--cream-dim); margin-top:.2rem; }
+    #order { padding: 9rem 7%; background: linear-gradient(135deg, var(--bg-2) 0%, var(--bg-base) 100%); text-align:center; overflow:hidden; position:relative; }
+    #order::before { content:'ON'; font-family:'Playfair Display',serif; font-size:35vw; font-weight:700; color: rgba(201,168,76,.025); position:absolute; left:50%; top:50%; transform:translate(-50%,-50%); pointer-events:none; user-select:none; line-height:1; }
+    .order-inner { position:relative; z-index:1; }
+    .order-links { display:flex; flex-wrap:wrap; justify-content:center; gap:1.2rem; margin-top:3rem; }
+    .o-link { display:flex; align-items:center; gap:1rem; padding: 1.1rem 2.4rem; background: var(--bg-card); border: 1px solid rgba(201,168,76,.18); color: var(--cream); text-decoration:none; font-size:.88rem; letter-spacing:.1em; transition: all .4s; }
+    .o-link:hover { border-color:var(--gold); color:var(--gold); transform:translateY(-5px); box-shadow:0 20px 40px var(--shadow); }
+    .o-icon { font-size:1.5rem; }
+    .order-meta { display:flex; justify-content:center; flex-wrap:wrap; gap:4rem; margin-top:5rem; }
+    .om-item { text-align:center; }
+    .om-label { font-size:.65rem; letter-spacing:.4em; text-transform:uppercase; color:var(--gold); margin-bottom:.5rem; }
+    .om-val { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--cream); }
+    .om-ar { font-family:'Noto Naskh Arabic',serif; font-size:.9rem; color:var(--cream-dim); margin-top:.3rem; }
+    footer { background: var(--bg-2); border-top: 1px solid var(--border); padding: 5rem 7% 2.5rem; position:relative; z-index:2; }
+    .footer-grid { display:grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 4rem; margin-bottom: 3.5rem; }
+    @media(max-width:768px){ .footer-grid { grid-template-columns:1fr 1fr; gap:2.5rem; } .footer-grid > div:first-child { grid-column:1/-1; } }
+    .f-logo-en { font-family:'Playfair Display',serif; font-size:2.8rem; color:var(--gold); letter-spacing:.25em; display:block; padding-right:.25em; }
+    .f-logo-ar { font-family:'Noto Naskh Arabic',serif; font-size:1.1rem; color:var(--cream-dim); display:block; margin-bottom:1.5rem; }
+    .f-desc { font-size:.83rem; color:var(--cream-dim); line-height:1.9; max-width:270px; }
+    .f-col-title { font-size:.68rem; letter-spacing:.35em; text-transform:uppercase; color:var(--gold); margin-bottom:1.5rem; }
+    .f-links { list-style:none; display:flex; flex-direction:column; gap:.8rem; }
+    .f-links a { color:var(--cream-dim); text-decoration:none; font-size:.83rem; transition:color .3s; }
+    .f-links a:hover { color:var(--gold); }
+    .socials { display:flex; gap:.9rem; margin-top:2rem; }
+    .soc-link { width:40px; height:40px; border: 1px solid rgba(201,168,76,.2); display:flex; align-items:center; justify-content:center; color:var(--cream-dim); text-decoration:none; font-size:1rem; transition:all .3s; }
+    .soc-link:hover { border-color:var(--gold); color:var(--gold); background:rgba(201,168,76,.05); }
+    .footer-bottom { border-top: 1px solid var(--border); padding-top: 2rem; display:flex; justify-content:space-between; align-items:center; font-size:.72rem; color:rgba(168,160,153,.45); letter-spacing:.1em; flex-wrap:wrap; gap:1rem; }
+    @media(max-width:580px){ .stats-row { grid-template-columns:repeat(3,1fr); gap:1rem; } .stat-n { font-size:2.2rem; } .feat-grid { grid-template-columns:1fr; } #featured,#menu,#order { padding:5rem 6%; } .order-meta { gap:2.5rem; } .footer-grid { grid-template-columns:1fr; } .footer-grid > div:first-child { grid-column:unset; } }
+    </style>
+</head>
+<body>
+<div id="loader"><div class="ldr-logo">ON</div><div class="ldr-ar">أون</div><div class="ldr-bar"><div class="ldr-fill"></div></div></div>
+<div id="cur"></div><div id="cur-f"></div>
+<canvas id="pcv"></canvas>
+<nav id="nav">
+    <a href="#hero" class="nav-logo"><span class="nav-logo-en">ON</span><span class="nav-logo-ar">أون</span></a>
+    <ul class="nav-links">
+        <li><a href="#about">About</a></li><li><a href="#featured">Signature</a></li><li><a href="#menu">Menu</a></li><li><a href="#experience">Experience</a></li><li><a href="#order" class="nav-btn">Order Now</a></li>
+    </ul>
+    <div class="hamburger" id="hbg"><span></span><span></span><span></span></div>
+</nav>
+<nav class="mob-nav" id="mob-nav">
+    <button class="mob-close" id="mob-close">✕</button>
+    <a href="#about">About</a><a href="#featured">Signature</a><a href="#menu">Menu</a><a href="#experience">Experience</a><a href="#order">Order Now</a>
+</nav>
+<section id="hero">
+    <div class="hero-bg"></div><div class="hero-grid" id="hero-grid"></div>
+    <div class="wsp" style="left:47.5%;height:90px;animation-delay:0s;"></div>
+    <div class="wsp" style="left:49.5%;height:70px;animation-delay:1.8s;"></div>
+    <div class="wsp" style="left:51.5%;height:110px;animation-delay:.9s;"></div>
+    <div class="hero-inner">
+        <p class="hero-pre">Riyadh's finest snack bar</p>
+        <h1 class="hero-title"><span class="g">O</span>N</h1>
+        <p class="hero-ar">أون</p>
+        <p class="hero-sub">Where every bite tells a story &nbsp;·&nbsp; كل لقمة حكاية</p>
+        <div class="hero-cta"><a href="#menu" class="btn-gold"><span>Explore Menu</span></a><a href="#featured" class="btn-ghost">Signature Items</a></div>
+    </div>
+    <div class="hero-scroll"><div class="scroll-bar"></div><span>Scroll</span></div>
+</section>
+<div class="marquee-wrap"><div class="marquee-track"><div class="mq-item">Specialty Coffee<span class="mq-dot"></span></div><div class="mq-item">Artisan Desserts<span class="mq-dot"></span></div><div class="mq-item">Fresh Sandwiches<span class="mq-dot"></span></div><div class="mq-item">Gourmet Snacks<span class="mq-dot"></span></div><div class="mq-item">Cold Brew<span class="mq-dot"></span></div><div class="mq-item">Gathering Boxes<span class="mq-dot"></span></div><div class="mq-item">Riyadh · KSA<span class="mq-dot"></span></div><div class="mq-item">قهوة متخصصة<span class="mq-dot"></span></div><div class="mq-item">حلويات فاخرة<span class="mq-dot"></span></div><div class="mq-item">Specialty Coffee<span class="mq-dot"></span></div><div class="mq-item">Artisan Desserts<span class="mq-dot"></span></div><div class="mq-item">Fresh Sandwiches<span class="mq-dot"></span></div><div class="mq-item">Gourmet Snacks<span class="mq-dot"></span></div><div class="mq-item">Cold Brew<span class="mq-dot"></span></div><div class="mq-item">Gathering Boxes<span class="mq-dot"></span></div><div class="mq-item">Riyadh · KSA<span class="mq-dot"></span></div><div class="mq-item">قهوة متخصصة<span class="mq-dot"></span></div><div class="mq-item">حلويات فاخرة<span class="mq-dot"></span></div></div></div>
+<section id="about">
+    <div class="about-body rev"><p class="s-label">Our Story</p><h2 class="s-title">A place where <em>moments</em> are made</h2><div class="s-rule"></div><p>ON Snack Bar (أون) is Riyadh's destination for those who appreciate the finer details — from a perfectly pulled espresso to a slice of our signature London Cheesecake.</p><p>We believe great food is more than sustenance. It's a ritual, a pause in the day, a reason to gather. Every item on our menu is crafted with intention, using quality ingredients that speak for themselves.</p><div class="stats-row"><div class="stat rev d1"><span class="stat-n" data-count="9">9</span><span class="stat-l">Categories</span></div><div class="stat rev d2"><span class="stat-n" data-count="50">50</span><span class="stat-l">Menu Items</span></div><div class="stat rev d3"><span class="stat-n">∞</span><span class="stat-l">Good Moments</span></div></div></div>
+    <div class="about-vis rev d2"><div class="av-card av-main"><div class="av-main-icon">☕</div><div class="av-main-tag">Signature Dessert</div><div class="av-main-name">French Toast<br>Crème Brûlée</div><div class="av-main-price">42 SAR</div></div><div class="av-card av-accent"><div class="av-accent-tag">Always Fresh</div><div class="av-accent-val">Cinnabon</div><div class="av-accent-sub">16 SAR · Baked daily with caramel</div></div></div>
+</section>
+<section id="featured">
+    <div class="featured-hd rev"><p class="s-label">Signature Dishes</p><h2 class="s-title">The ones everyone <em>talks about</em></h2></div>
+    <div class="feat-grid">
+        <div class="feat-card rev d1"><div class="fc-corner"></div><span class="fc-emoji">🍮</span><p class="fc-cat">Dessert</p><h3 class="fc-name">French Toast Crème Brûlée</h3><p class="fc-desc">Golden french toast with a rich crème brûlée sauce underneath — a decadent fusion of two classics.</p><div class="fc-price">42 <sup>SAR</sup></div></div>
+        <div class="feat-card rev d2"><div class="fc-corner"></div><span class="fc-emoji">🍰</span><p class="fc-cat">Dessert</p><h3 class="fc-name">London Cheesecake</h3><p class="fc-desc">Silky creamy cheesecake crowned with a vibrant fresh berry sauce. London's finest, made in Riyadh.</p><div class="fc-price">36 <sup>SAR</sup></div></div>
+        <div class="feat-card rev d3"><div class="fc-corner"></div><span class="fc-emoji">🥐</span><p class="fc-cat">Snack</p><h3 class="fc-name">Cinnabon</h3><p class="fc-desc">Freshly baked cinnamon roll drizzled with warm caramel sauce. Pure comfort in every bite.</p><div class="fc-price">16 <sup>SAR</sup></div></div>
+        <div class="feat-card rev d1"><div class="fc-corner"></div><span class="fc-emoji">🥪</span><p class="fc-cat">Sandwich</p><h3 class="fc-name">ON. Grilled Chicken</h3><p class="fc-desc">Tender grilled chicken, crisp lettuce, and fresh avocado — the perfect balance of freshness.</p><div class="fc-price">32 <sup>SAR</sup></div></div>
+        <div class="feat-card rev d2"><div class="fc-corner"></div><span class="fc-emoji">🍫</span><p class="fc-cat">Dessert</p><h3 class="fc-name">ON. Cake</h3><p class="fc-desc">Fluffy chocolate cake generously filled with sweetened cream. Our pride and signature creation.</p><div class="fc-price">33 <sup>SAR</sup></div></div>
+        <div class="feat-card rev d3"><div class="fc-corner"></div><span class="fc-emoji">🧋</span><p class="fc-cat">Cold Coffee</p><h3 class="fc-name">Ice Spanish Latte</h3><p class="fc-desc">Bold espresso poured over silky condensed milk and ice — with our distinctive ON touch.</p><div class="fc-price">29 <sup>SAR</sup></div></div>
+    </div>
+</section>
+<section id="menu">
+    <div class="menu-hd rev"><p class="s-label">Full Menu</p><h2 class="s-title">Everything we <em>craft</em></h2><p>Browse our complete menu — from morning coffee rituals to afternoon treats and everything in between.</p></div>
+    <div class="menu-tabs rev"><button class="m-tab on" data-cat="all">All</button><button class="m-tab" data-cat="dessert">Desserts</button><button class="m-tab" data-cat="cold">Cold Coffee</button><button class="m-tab" data-cat="hot">Hot Drinks</button><button class="m-tab" data-cat="sandwich">Sandwiches</button><button class="m-tab" data-cat="snack">Snacks</button><button class="m-tab" data-cat="juice">Juices</button><button class="m-tab" data-cat="box">Boxes</button><button class="m-tab" data-cat="cake">Cakes</button><button class="m-tab" data-cat="beans">Coffee Beans</button></div>
+    <div class="menu-grid" id="mg">
+        <div class="m-card rev" data-cat="dessert"><div class="m-card-body"><div class="m-name">Golden Memories</div><div class="m-desc">Nostalgic traditional dessert with rich layers and a soft texture</div><div class="m-cal">356 cal</div></div><div class="m-price"><span class="cur">SAR</span>26</div></div>
+        <div class="m-card rev d1" data-cat="dessert"><div class="m-card-body"><div class="m-name">Coco Peach</div><div class="m-desc">A delightful coconut and peach combination</div></div><div class="m-price"><span class="cur">SAR</span>29</div></div>
+        <div class="m-card rev d2" data-cat="dessert"><div class="m-card-body"><div class="m-name">ON. Cake</div><div class="m-desc">Fluffy chocolate cake filled with sweetened cream</div><div class="m-cal">510 cal</div></div><div class="m-price"><span class="cur">SAR</span>33</div></div>
+        <div class="m-card rev" data-cat="dessert"><div class="m-card-body"><div class="m-name">Kinder Cookies</div><div class="m-desc">Classic soft cookies served with Kinder chocolate</div><div class="m-cal">684 cal</div></div><div class="m-price"><span class="cur">SAR</span>28</div></div>
+        <div class="m-card rev d1" data-cat="dessert"><div class="m-card-body"><div class="m-name">London Cheesecake</div><div class="m-desc">Creamy cheesecake topped with fresh berry sauce</div><div class="m-cal">669 cal</div></div><div class="m-price"><span class="cur">SAR</span>36</div></div>
+        <div class="m-card rev d2" data-cat="dessert"><div class="m-card-body"><div class="m-name">Madrid Cake</div><div class="m-desc">Creamy vanilla cheesecake with rich chocolate sauce</div></div><div class="m-price"><span class="cur">SAR</span>36</div></div>
+        <div class="m-card rev" data-cat="dessert"><div class="m-card-body"><div class="m-name">Dolce Cake</div><div class="m-desc">Rich, moist chocolate cake with smooth white cream</div></div><div class="m-price"><span class="cur">SAR</span>29</div></div>
+        <div class="m-card rev d1" data-cat="dessert"><div class="m-card-body"><div class="m-name">French Toast Crème Brûlée</div><div class="m-desc">French toast with crème brûlée sauce underneath</div><div class="m-cal">1362 cal</div></div><div class="m-price"><span class="cur">SAR</span>42</div></div>
+        <div class="m-card rev d2" data-cat="dessert"><div class="m-card-body"><div class="m-name">Tiramisu</div><div class="m-desc">Layers of coffee-soaked biscuits and mascarpone cream</div><div class="m-cal">275 cal</div></div><div class="m-price"><span class="cur">SAR</span>29</div></div>
+        <div class="m-card rev" data-cat="dessert"><div class="m-card-body"><div class="m-name">Cinnabon</div><div class="m-desc">Freshly baked cinnamon roll with caramel sauce</div><div class="m-cal">488 cal</div></div><div class="m-price"><span class="cur">SAR</span>16</div></div>
+        <div class="m-card rev d1" data-cat="dessert"><div class="m-card-body"><div class="m-name">Chocolate Cake</div><div class="m-cal">521 cal</div></div><div class="m-price"><span class="cur">SAR</span>31</div></div>
+        <div class="m-card rev d2" data-cat="dessert"><div class="m-card-body"><div class="m-name">Charlotte Cake</div><div class="m-desc">Soft vanilla cake layered with signature cream</div><div class="m-cal">290 cal</div></div><div class="m-price"><span class="cur">SAR</span>29</div></div>
+        <div class="m-card rev" data-cat="cold"><div class="m-card-body"><div class="m-name">Cascara</div><div class="m-desc">A unique coffee cherry tea — earthy, sweet, and refreshing</div></div><div class="m-price"><span class="cur">SAR</span>24</div></div>
+        <div class="m-card rev d1" data-cat="cold"><div class="m-card-body"><div class="m-name">Ice Spanish Latte</div><div class="m-desc">Bold espresso with condensed milk over ice</div></div><div class="m-price"><span class="cur">SAR</span>29</div></div>
+        <div class="m-card rev d2" data-cat="cold"><div class="m-card-body"><div class="m-name">Ice Latte</div><div class="m-cal">155 cal</div></div><div class="m-price"><span class="cur">SAR</span>26</div></div>
+        <div class="m-card rev" data-cat="cold"><div class="m-card-body"><div class="m-name">Ice French Vanilla</div><div class="m-cal">265 cal</div></div><div class="m-price"><span class="cur">SAR</span>26</div></div>
+        <div class="m-card rev d1" data-cat="cold"><div class="m-card-body"><div class="m-name">Ice Drip Coffee</div><div class="m-cal">17 cal</div></div><div class="m-price"><span class="cur">SAR</span>23</div></div>
+        <div class="m-card rev d2" data-cat="cold"><div class="m-card-body"><div class="m-name">Iced Matcha</div><div class="m-cal">249 cal</div></div><div class="m-price"><span class="cur">SAR</span>29</div></div>
+        <div class="m-card rev" data-cat="hot"><div class="m-card-body"><div class="m-name">Espresso</div><div class="m-cal">20 cal</div></div><div class="m-price"><span class="cur">SAR</span>14</div></div>
+        <div class="m-card rev d1" data-cat="hot"><div class="m-card-body"><div class="m-name">V60 Pour Over</div><div class="m-desc">Precision-brewed single origin · 9oz</div><div class="m-cal">17 cal</div></div><div class="m-price"><span class="cur">SAR</span>23</div></div>
+        <div class="m-card rev d2" data-cat="hot"><div class="m-card-body"><div class="m-name">Coffee Latte</div><div class="m-cal">141 cal</div></div><div class="m-price"><span class="cur">SAR</span>22</div></div>
+        <div class="m-card rev" data-cat="hot"><div class="m-card-body"><div class="m-name">Hot Spanish Latte</div><div class="m-cal">202 cal</div></div><div class="m-price"><span class="cur">SAR</span>26</div></div>
+        <div class="m-card rev d1" data-cat="hot"><div class="m-card-body"><div class="m-name">Cortado</div><div class="m-cal">85 cal</div></div><div class="m-price"><span class="cur">SAR</span>17</div></div>
+        <div class="m-card rev d2" data-cat="hot"><div class="m-card-body"><div class="m-name">Flat White</div><div class="m-cal">110 cal</div></div><div class="m-price"><span class="cur">SAR</span>19</div></div>
+        <div class="m-card rev" data-cat="hot"><div class="m-card-body"><div class="m-name">Cappuccino</div><div class="m-cal">123 cal</div></div><div class="m-price"><span class="cur">SAR</span>22</div></div>
+        <div class="m-card rev d1" data-cat="hot"><div class="m-card-body"><div class="m-name">Coffee Day</div><div class="m-desc">Our house brew — light, bright, and daily</div><div class="m-cal">8 cal</div></div><div class="m-price"><span class="cur">SAR</span>14</div></div>
+        <div class="m-card rev" data-cat="sandwich"><div class="m-card-body"><div class="m-name">Tuna Sandwich</div><div class="m-desc">Fresh bread with tuna, tomato slices, pesto</div><div class="m-cal">417 cal</div></div><div class="m-price"><span class="cur">SAR</span>26</div></div>
+        <div class="m-card rev d1" data-cat="sandwich"><div class="m-card-body"><div class="m-name">Halloumi Grilled</div><div class="m-desc">Grilled halloumi cheese, arugula, tomatoes</div><div class="m-cal">412 cal</div></div><div class="m-price"><span class="cur">SAR</span>29</div></div>
+        <div class="m-card rev d2" data-cat="sandwich"><div class="m-card-body"><div class="m-name">ON. Grilled Chicken</div><div class="m-desc">Tender chicken, crisp lettuce, fresh avocado</div><div class="m-cal">903 cal</div></div><div class="m-price"><span class="cur">SAR</span>32</div></div>
+        <div class="m-card rev" data-cat="sandwich"><div class="m-card-body"><div class="m-name">Omelette Sandwich</div><div class="m-cal">287 cal</div></div><div class="m-price"><span class="cur">SAR</span>31</div></div>
+        <div class="m-card rev d1" data-cat="sandwich"><div class="m-card-body"><div class="m-name">Peanut &amp; Red Berries</div><div class="m-cal">290 cal</div></div><div class="m-price"><span class="cur">SAR</span>21</div></div>
+        <div class="m-card rev d2" data-cat="sandwich"><div class="m-card-body"><div class="m-name">Smoked Turkey</div><div class="m-desc">Smoked turkey, feta cheese, cherry tomatoes</div><div class="m-cal">511 cal</div></div><div class="m-price"><span class="cur">SAR</span>30</div></div>
+        <div class="m-card rev" data-cat="sandwich"><div class="m-card-body"><div class="m-name">Feta Sandwich</div><div class="m-desc">Feta cheese, oregano, black olives, grilled tomatoes</div><div class="m-cal">293 cal</div></div><div class="m-price"><span class="cur">SAR</span>26</div></div>
+        <div class="m-card rev" data-cat="snack"><div class="m-card-body"><div class="m-name">Brownie Cookies</div></div><div class="m-price"><span class="cur">SAR</span>16</div></div>
+        <div class="m-card rev d1" data-cat="snack"><div class="m-card-body"><div class="m-name">Cookies Classic</div><div class="m-cal">342 cal</div></div><div class="m-price"><span class="cur">SAR</span>14</div></div>
+        <div class="m-card rev d2" data-cat="snack"><div class="m-card-body"><div class="m-name">Marble Cake</div><div class="m-desc">Soft cake with vanilla and chocolate flavors</div><div class="m-cal">306 cal</div></div><div class="m-price"><span class="cur">SAR</span>14</div></div>
+        <div class="m-card rev" data-cat="snack"><div class="m-card-body"><div class="m-name">Pecan Chocolate</div></div><div class="m-price"><span class="cur">SAR</span>16</div></div>
+        <div class="m-card rev d1" data-cat="snack"><div class="m-card-body"><div class="m-name">Choco Berry Box (3 pcs)</div></div><div class="m-price"><span class="cur">SAR</span>16</div></div>
+        <div class="m-card rev" data-cat="juice"><div class="m-card-body"><div class="m-name">Fresh Orange Juice</div><div class="m-cal">122 cal</div></div><div class="m-price"><span class="cur">SAR</span>24</div></div>
+        <div class="m-card rev d1" data-cat="juice"><div class="m-card-body"><div class="m-name">Mint Lemonade</div><div class="m-cal">33 cal</div></div><div class="m-price"><span class="cur">SAR</span>22</div></div>
+        <div class="m-card rev d2" data-cat="juice"><div class="m-card-body"><div class="m-name">Orange &amp; Carrot Juice</div><div class="m-cal">127 cal</div></div><div class="m-price"><span class="cur">SAR</span>24</div></div>
+        <div class="m-card rev" data-cat="juice"><div class="m-card-body"><div class="m-name">ON. Karkadeh</div><div class="m-desc">Traditional hibiscus drink — our special blend</div><div class="m-cal">60 cal</div></div><div class="m-price"><span class="cur">SAR</span>24</div></div>
+        <div class="m-card rev d1" data-cat="juice"><div class="m-card-body"><div class="m-name">Ice Tea</div></div><div class="m-price"><span class="cur">SAR</span>24</div></div>
+        <div class="m-card rev" data-cat="box"><div class="m-card-body"><div class="m-name">Golden Memories Box</div><div class="m-cal">1152 cal</div></div><div class="m-price"><span class="cur">SAR</span>110</div></div>
+        <div class="m-card rev d1" data-cat="box"><div class="m-card-body"><div class="m-name">Crème Brûlée French Toast Box</div><div class="m-desc">Perfect for gatherings</div></div><div class="m-price"><span class="cur">SAR</span>149</div></div>
+        <div class="m-card rev d2" data-cat="box"><div class="m-card-body"><div class="m-name">Kinder Cookies Gathering Box</div></div><div class="m-price"><span class="cur">SAR</span>155</div></div>
+        <div class="m-card rev" data-cat="box"><div class="m-card-body"><div class="m-name">Mini Cinnabon Gathering Box</div></div><div class="m-price"><span class="cur">SAR</span>135</div></div>
+        <div class="m-card rev d1" data-cat="box"><div class="m-card-body"><div class="m-name">Saudi Coffee Box</div></div><div class="m-price"><span class="cur">SAR</span>65</div></div>
+        <div class="m-card rev d2" data-cat="box"><div class="m-card-body"><div class="m-name">Hot Coffee Day Box</div></div><div class="m-price"><span class="cur">SAR</span>75</div></div>
+        <div class="m-card rev" data-cat="cake"><div class="m-card-body"><div class="m-name">Lunch Box Cake</div><div class="m-cal">485 cal</div></div><div class="m-price"><span class="cur">SAR</span>125</div></div>
+        <div class="m-card rev d1" data-cat="cake"><div class="m-card-body"><div class="m-name">Mini Lunch Box Cake</div><div class="m-desc">Customizable with a personalized message</div><div class="m-cal">233 cal</div></div><div class="m-price"><span class="cur">SAR</span>52</div></div>
+        <div class="m-card rev" data-cat="beans"><div class="m-card-body"><div class="m-name">Colombia Coffee Beans</div><div class="m-desc">Single origin · 250g — bright and fruity notes</div></div><div class="m-price"><span class="cur">SAR</span>59</div></div>
+        <div class="m-card rev d1" data-cat="beans"><div class="m-card-body"><div class="m-name">Ethiopia Coffee Beans</div><div class="m-desc">Single origin · 250g — floral and complex notes</div></div><div class="m-price"><span class="cur">SAR</span>59</div></div>
+    </div>
+</section>
+<section id="experience">
+    <div class="rev"><p class="s-label">The ON Experience</p><h2 class="s-title">More than <em>just food</em></h2><div class="s-rule"></div><div class="exp-feats"><div class="exp-feat rev d1"><div class="ef-icon">☕</div><div><div class="ef-title">Specialty Coffee</div><div class="ef-desc">From V60 pour-overs to Spanish lattes — every cup brewed with intention using single-origin beans from Colombia and Ethiopia.</div></div></div><div class="exp-feat rev d2"><div class="ef-icon">🎂</div><div><div class="ef-title">Artisan Desserts</div><div class="ef-desc">Our pastry menu spans continents — Parisian tiramisu, London cheesecake, Madrid cake — crafted fresh for your indulgence.</div></div></div><div class="exp-feat rev d3"><div class="ef-icon">📦</div><div><div class="ef-title">Gathering Boxes</div><div class="ef-desc">Celebrate any occasion with our curated gathering boxes. The perfect way to share the ON experience.</div></div></div><div class="exp-feat rev d4"><div class="ef-icon">🌿</div><div><div class="ef-title">Fresh Ingredients</div><div class="ef-desc">Quality is non-negotiable. Every sandwich, dessert, and drink is prepared fresh with carefully selected ingredients.</div></div></div></div></div>
+    <div class="exp-vis rev d2"><div class="exp-ring er4"></div><div class="exp-ring er3"></div><div class="exp-ring er2"></div><div class="exp-ring er1"></div><div class="exp-core"><span class="exp-core-n">ON</span><span class="exp-core-s">أون</span></div></div>
+</section>
+<section id="order">
+    <div class="order-inner"><div class="rev"><p class="s-label">Order Now</p><h2 class="s-title">Craving something <em>good?</em></h2><p style="color:var(--cream-dim);max-width:500px;margin:.5rem auto 0;font-size:.95rem;line-height:2;">Order for delivery or follow us on Instagram. We bring the ON experience straight to you.</p></div><div class="order-links rev d1"><a href="https://hungerstation.com/sa-en/restaurant/riyadh/al-muzahimiyah/104552" class="o-link" target="_blank" rel="noopener"><span class="o-icon">🛵</span><span>Order on HungerStation</span></a><a href="https://www.instagram.com/on.ksa1/" class="o-link" target="_blank" rel="noopener"><span class="o-icon">📸</span><span>Follow @on.ksa1</span></a></div><div class="order-meta rev d2"><div class="om-item"><div class="om-label">Location</div><div class="om-val">Riyadh, Saudi Arabia</div><div class="om-ar">الرياض، المملكة العربية السعودية</div></div><div class="om-item"><div class="om-label">Instagram</div><div class="om-val">@on.ksa1</div></div><div class="om-item"><div class="om-label">Delivery</div><div class="om-val">HungerStation</div></div></div></div>
+</section>
+<footer><div class="footer-grid"><div><span class="f-logo-en">ON</span><span class="f-logo-ar">أون</span><p class="f-desc">Where specialty coffee meets artisan desserts and fresh flavors. Your favorite snack bar in the heart of Riyadh.</p><div class="socials"><a href="https://www.instagram.com/on.ksa1/" target="_blank" rel="noopener" class="soc-link"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a></div></div><div><p class="f-col-title">Menu</p><ul class="f-links"><li><a href="#menu" onclick="switchTab('dessert')">Desserts</a></li><li><a href="#menu" onclick="switchTab('cold')">Cold Coffee</a></li><li><a href="#menu" onclick="switchTab('hot')">Hot Drinks</a></li><li><a href="#menu" onclick="switchTab('sandwich')">Sandwiches</a></li><li><a href="#menu" onclick="switchTab('snack')">Snacks</a></li></ul></div><div><p class="f-col-title">More</p><ul class="f-links"><li><a href="#menu" onclick="switchTab('juice')">Juices</a></li><li><a href="#menu" onclick="switchTab('box')">Boxes</a></li><li><a href="#menu" onclick="switchTab('cake')">Cakes</a></li><li><a href="#menu" onclick="switchTab('beans')">Coffee Beans</a></li></ul></div><div><p class="f-col-title">Find Us</p><ul class="f-links"><li><a href="#">Riyadh, KSA</a></li><li><a href="https://www.instagram.com/on.ksa1/" target="_blank">@on.ksa1</a></li><li><a href="https://hungerstation.com/sa-en/restaurant/riyadh/al-muzahimiyah/104552" target="_blank">HungerStation</a></li></ul></div></div><div class="footer-bottom"><span>© 2025 ON Snack Bar · أون · Riyadh, Saudi Arabia</span><span>Crafted with care ✦</span></div></footer>
+<script>
+document.body.style.overflow='hidden';
+window.addEventListener('load',()=>{setTimeout(()=>{document.getElementById('loader').classList.add('out');document.body.style.overflow='';},2500);});
+const cur=document.getElementById('cur'),curf=document.getElementById('cur-f');let mx=0,my=0,fx=0,fy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+(function t(){fx+=(mx-fx)*.13;fy+=(my-fy)*.13;curf.style.left=fx+'px';curf.style.top=fy+'px';requestAnimationFrame(t);})();
+document.querySelectorAll('a,button,.feat-card,.m-card,.m-tab,.exp-feat,.stat').forEach(el=>{el.addEventListener('mouseenter',()=>document.body.classList.add('hovering'));el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));});
+const cv=document.getElementById('pcv'),cx=cv.getContext('2d');function rc(){cv.width=innerWidth;cv.height=innerHeight;}rc();window.addEventListener('resize',rc);
+const PTS=Array.from({length:65},()=>({x:Math.random()*innerWidth,y:Math.random()*innerHeight,vx:(Math.random()-.5)*.28,vy:(Math.random()-.5)*.28,r:Math.random()*1.8+.4,a:Math.random()*.35+.08}));
+(function dp(){cx.clearRect(0,0,cv.width,cv.height);for(let i=0;i<PTS.length;i++){const p=PTS[i];for(let j=i+1;j<PTS.length;j++){const q=PTS[j],dx=p.x-q.x,dy=p.y-q.y,d=Math.hypot(dx,dy);if(d<130){cx.beginPath();cx.strokeStyle=`rgba(201,168,76,${.07*(1-d/130)})`;cx.lineWidth=.6;cx.moveTo(p.x,p.y);cx.lineTo(q.x,q.y);cx.stroke();}}}PTS.forEach(p=>{p.x=(p.x+p.vx+cv.width)%cv.width;p.y=(p.y+p.vy+cv.height)%cv.height;cx.beginPath();cx.arc(p.x,p.y,p.r,0,Math.PI*2);cx.fillStyle=`rgba(201,168,76,${p.a})`;cx.fill();});requestAnimationFrame(dp);})();
+const nav=document.getElementById('nav');window.addEventListener('scroll',()=>nav.classList.toggle('solid',scrollY>60),{passive:true});
+const hg=document.getElementById('hero-grid');window.addEventListener('scroll',()=>{if(scrollY<innerHeight)hg.style.transform=`translateY(${scrollY*.35}px)`;},{passive:true});
+const mob=document.getElementById('mob-nav');document.getElementById('hbg').addEventListener('click',()=>mob.classList.add('open'));document.getElementById('mob-close').addEventListener('click',()=>mob.classList.remove('open'));mob.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>mob.classList.remove('open')));
+const io=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});},{threshold:.08,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.rev').forEach(el=>io.observe(el));
+const cio=new IntersectionObserver(entries=>{entries.forEach(e=>{if(!e.isIntersecting)return;const el=e.target,target=parseInt(el.dataset.count);if(isNaN(target))return;const dur=1800,t0=performance.now();(function tick(now){const p=Math.min((now-t0)/dur,1),eased=1-Math.pow(1-p,3);el.textContent=Math.round(eased*target);if(p<1)requestAnimationFrame(tick);})(t0);cio.unobserve(el);});});document.querySelectorAll('[data-count]').forEach(el=>cio.observe(el));
+const tabs=document.querySelectorAll('.m-tab'),cards=document.querySelectorAll('.m-card');function filterMenu(cat){cards.forEach(c=>{const show=cat==='all'||c.dataset.cat===cat;c.style.display=show?'flex':'none';if(show){c.classList.remove('in');setTimeout(()=>c.classList.add('in'),60);}});}tabs.forEach(t=>t.addEventListener('click',()=>{tabs.forEach(x=>x.classList.remove('on'));t.classList.add('on');filterMenu(t.dataset.cat);}));function switchTab(cat){const t=document.querySelector(`.m-tab[data-cat="${cat}"]`);if(t)t.click();}window.switchTab=switchTab;
+</script>
+</body>
+</html>
